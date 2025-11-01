@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --primary-dark-blue: #1e3a8a; /* blue-800 */
+  --secondary-dark-blue: #1e40af; /* blue-700 */
+  --accent-red: #dc2626; /* red-600 */
+  --text-black: #000000;
+  --text-white: #ffffff;
+  --background-light: #f8fafc; /* slate-50 */
+  --background-dark: #0f172a; /* slate-900 */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  background: var(--background-light);
+  color: var(--text-black);
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-dark-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-dark-blue);
+}
+
+/* Focus styles */
+*:focus {
+  outline: 2px solid var(--primary-dark-blue);
+  outline-offset: 2px;
+}
+
+/* Button transitions */
+.btn-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Card shadows */
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
