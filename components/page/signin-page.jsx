@@ -1,16 +1,35 @@
 "use client"
-import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import InputField from '../global/input-field';
 import Button from '../global/button';
 
 const SignInPage = () => {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (session?.user) {
+      const role = session.user.role;
+      const redirectPath = role === 'admin' ? '/admin_dashboard' : 
+                          role === 'consumer' ? '/consumer' : '/student_dashboard';
+      router.replace(redirectPath);
+    }
+  }, [session, status, router]);
+
+  if (status === 'loading') {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (session?.user) {
+    return null;
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -42,7 +61,9 @@ const SignInPage = () => {
 
       if (result?.ok) {
         toast.success('Login successful! Redirecting...', { id: 'signin' });
-        router.push('/');
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
       }
     } catch {
       toast.error('An unexpected error occurred.', { id: 'signin' });
