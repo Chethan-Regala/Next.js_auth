@@ -54,8 +54,10 @@ export function AuthForm({ mode = 'signin' }: { mode: 'signin' | 'login' }) {
       }
 
       if (result?.ok) {
-        // Redirect based on user role after successful signin
-        router.push('/');
+        // Add a small delay to ensure session is set, then redirect
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 100);
       }
     } catch {
       setError('An unexpected error occurred.');

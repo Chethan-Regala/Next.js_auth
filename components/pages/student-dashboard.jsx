@@ -24,7 +24,7 @@ const StudentDashboardPage = () => {
     return null;
   }
 
-  console.log('Student session (browser):', session.user);
+
 
   return (
     <MainLayout>

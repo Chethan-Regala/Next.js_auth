@@ -13,13 +13,11 @@ export async function middleware(req) {
   // Admin Dashboard Protection
   if (pathname.startsWith('/admin_dashboard')) {
     if (!token) {
-      console.log('[MIDDLEWARE] Unauthenticated user tried to access admin dashboard. Redirecting to /signin.');
       url.pathname = '/signin';
       return NextResponse.redirect(url);
     }
     
     if (token.role !== 'admin') {
-      console.log(`[MIDDLEWARE] User with role ${token.role} tried to access admin dashboard. Redirecting.`);
       if (token.role === 'student') {
         url.pathname = '/student_dashboard';
       } else {
@@ -32,13 +30,11 @@ export async function middleware(req) {
   // Student Dashboard Protection
   if (pathname.startsWith('/student_dashboard')) {
     if (!token) {
-      console.log('[MIDDLEWARE] Unauthenticated user tried to access student dashboard. Redirecting to /signin.');
       url.pathname = '/signin';
       return NextResponse.redirect(url);
     }
     
     if (token.role !== 'student') {
-      console.log(`[MIDDLEWARE] User with role ${token.role} tried to access student dashboard. Redirecting.`);
       if (token.role === 'admin') {
         url.pathname = '/admin_dashboard';
       } else {
@@ -51,13 +47,11 @@ export async function middleware(req) {
   // Consumer Dashboard Protection (existing)
   if (pathname.startsWith('/consumer')) {
     if (!token) {
-      console.log('[MIDDLEWARE] Unauthenticated user tried to access consumer dashboard. Redirecting to /signin.');
       url.pathname = '/signin';
       return NextResponse.redirect(url);
     }
     
     if (token.role !== 'consumer') {
-      console.log(`[MIDDLEWARE] User with role ${token.role} tried to access consumer dashboard. Redirecting.`);
       url.pathname = '/signin';
       return NextResponse.redirect(url);
     }

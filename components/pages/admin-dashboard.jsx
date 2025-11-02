@@ -22,14 +22,13 @@ const AdminDashboardSimple = () => {
 
   if (!session || session.user?.role !== 'admin') return null;
 
-  const username = session.user?.name ?? session.user?.username ?? session.user?.email;
-
   return (
     <MainLayout>
-      <div className="max-w-3xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-black text-center md:text-left">Admin Dashboard</h1>
+      <div className="grid grid-cols-1 gap-6">
         <Card>
-          <h1 className="text-2xl font-semibold text-black text-center">Welcome, {username}.</h1>
-          <p className="text-sm text-gray-700 text-center mt-2">This is your admin dashboard.</p>
+          <h2 className="text-xl text-black font-semibold mb-2">Welcome!</h2>
+          <p className='text-black'>This is your admin dashboard. Manage users, settings, and system configurations from here.</p>
         </Card>
       </div>
     </MainLayout>
