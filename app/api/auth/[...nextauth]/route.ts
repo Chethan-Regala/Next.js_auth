@@ -78,6 +78,12 @@ export const authOptions: NextAuthOptions = {
                 (session.user as unknown as { username?: string }).username = token.username as string | undefined;
             }
             return session;
+        },
+        async redirect({ url, baseUrl }) {
+            // Handle redirects after sign in
+            if (url.startsWith('/')) return `${baseUrl}${url}`;
+            if (new URL(url).origin === baseUrl) return url;
+            return baseUrl;
         }
     },
     pages: {

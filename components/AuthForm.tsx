@@ -54,10 +54,8 @@ export function AuthForm({ mode = 'signin' }: { mode: 'signin' | 'login' }) {
       }
 
       if (result?.ok) {
-        // Add a small delay to ensure session is set, then redirect
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 100);
+        // Force a full page reload to ensure session is properly loaded
+        window.location.replace('/');
       }
     } catch {
       setError('An unexpected error occurred.');

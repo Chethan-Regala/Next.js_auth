@@ -4,5 +4,11 @@
       "maxDuration": 10
     }
   },
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "rewrites": [
+    {
+      "source": "/((?!api|_next|_static|favicon.ico).*)",
+      "destination": "/"
+    }
+  ]
 }
