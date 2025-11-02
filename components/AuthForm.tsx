@@ -54,8 +54,17 @@ export function AuthForm({ mode = 'signin' }: { mode: 'signin' | 'login' }) {
       }
 
       if (result?.ok) {
-        // Force a full page reload to ensure session is properly loaded
-        window.location.replace('/');
+        // Get user session to determine redirect path
+        const response = await fetch('/api/auth/session');
+        const session = await response.json();
+        
+        if (session?.user?.role) {
+          const redirectPath = session.user.role === 'admin' ? '/admin_dashboard' : 
+                              session.user.role === 'consumer' ? '/consumer' : '/student_dashboard';
+          router.push(redirectPath);
+        } else {
+          window.location.replace('/');
+        }
       }
     } catch {
       setError('An unexpected error occurred.');
